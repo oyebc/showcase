@@ -1,0 +1,10 @@
+design - in progress
+network and models - in progress
+add viewmodels 
+add repo?
+add Activity and recyclerview to hold photos
+display fixed array of photos with view(use glide library)
+use paging library to implement pagination.
+add PhotoDetailActivity
+add network calls for fetching image
+UI polish.

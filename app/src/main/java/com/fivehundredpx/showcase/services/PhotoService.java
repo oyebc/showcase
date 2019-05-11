@@ -4,14 +4,20 @@ import android.accounts.NetworkErrorException;
 import android.util.Pair;
 
 import com.fivehundredpx.showcase.Secret;
+import com.fivehundredpx.showcase.model.Photo;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.fivehundredpx.showcase.Settings.API_VERSION;
@@ -22,7 +28,7 @@ import static com.fivehundredpx.showcase.Settings.PATH_PHOTOS;
 public class PhotoService {
 
     //TODO: Update method name and params
-    public String getPhotosWithinRange(int page) throws UnsupportedEncodingException, JSONException, NetworkErrorException {
+    public List<Photo> getPhotosWithinRange(int page) throws UnsupportedEncodingException, JSONException, NetworkErrorException {
 
         //construct url
         //https://api.500px.com/v1/photos?feature=popular&page={page}&rpp={number_of_results}
@@ -49,8 +55,15 @@ public class PhotoService {
         if(httpResponse != null && httpResponse.getResponseCode() == 200) {
 
             String jsonResult = new String(httpResponse.getResponseData(), "UTF-8");
-            JSONObject messagesJSON = new JSONObject(jsonResult);
-            return jsonResult;
+            JSONObject resultJSON = new JSONObject(jsonResult);
+            JSONArray photosJSONArray = resultJSON.getJSONArray("photos");
+
+            Gson gson = new Gson();
+            Type photoListType = new TypeToken<ArrayList<Photo>>(){}.getType();
+
+            List<Photo> photos = gson.fromJson(photosJSONArray.toString(), photoListType); //TODO: not terribly optimal
+
+            return photos;
         }
         throw new NetworkErrorException("Something went wrong fetching photos...");
     }
