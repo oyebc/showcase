@@ -1,0 +1,30 @@
+@startuml
+title Models
+
+class PhotoService {
+     int currentPage
+     
+    List<Photo> getPhotosWithinRange()
+    Photo getPhoto()
+}
+
+class Photo {
+    String id
+    String name
+    int width
+    int height
+    String image_url
+    User user
+
+}
+
+class User {
+    String id
+    String username
+    String firstname
+    String lastname
+}
+
+PhotoService --* Photo
+Photo -left-* User
+@enduml
