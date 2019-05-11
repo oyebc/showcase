@@ -15,10 +15,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Samuel Oyediran on 12/12/2016.
- * @ Copyright © 2016 Identos. All rights reserved
  */
 
 public class NetworkManager {
@@ -35,7 +35,7 @@ public class NetworkManager {
 
 
     @Nullable
-    public static HttpResponse makeHttpRequest(String url, String requestMethod, String requestBody, List<Pair<String, String>> requestProperties)
+    public static HttpResponse makeHttpRequest(String url, String requestMethod, String requestBody, Map<String, String> requestProperties)
     {
         HttpURLConnection httpUrlConnection = null;
         HttpResponse httpResponse = new HttpResponse(new byte[0], "", -1, "");
@@ -54,9 +54,9 @@ public class NetworkManager {
             //set request headers
             if(requestProperties != null)
             {
-                for (Pair<String, String> property: requestProperties)
+                for (Map.Entry<String, String> property: requestProperties.entrySet())
                 {
-                    httpUrlConnection.setRequestProperty(property.first, property.second);
+                    httpUrlConnection.setRequestProperty(property.getKey(), property.getValue());
                 }
             }
             //if this is a post/put http request then there might be a request body, add it to the
