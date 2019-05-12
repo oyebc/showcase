@@ -1,0 +1,91 @@
+package com.fivehundredpx.showcase.data;
+
+import android.accounts.NetworkErrorException;
+import android.os.AsyncTask;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+import androidx.paging.ItemKeyedDataSource;
+import androidx.paging.PageKeyedDataSource;
+import androidx.paging.PositionalDataSource;
+
+import com.fivehundredpx.showcase.model.Photo;
+import com.fivehundredpx.showcase.services.PhotoService;
+
+import org.json.JSONException;
+
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+
+public class PhotosDataSource extends PageKeyedDataSource<Integer, Photo> {
+
+
+    private PhotoService photoService;
+
+    private MutableLiveData networkState;
+    private MutableLiveData initialLoading;
+
+    private Integer currentPage = 1;
+
+    public PhotosDataSource(){
+        this.photoService = new PhotoService();
+
+        networkState = new MutableLiveData();
+        initialLoading = new MutableLiveData();
+    }
+
+    public MutableLiveData getNetworkState() {
+        return networkState;
+    }
+
+    public MutableLiveData getInitialLoading() {
+        return initialLoading;
+    }
+
+    @Override
+    public void loadInitial(@NonNull final LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Photo> callback) {
+        initialLoading.postValue(NetworkState.LOADING);
+        networkState.postValue(NetworkState.LOADING);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<Photo> photos = photoService.getPhotosWithinRange(currentPage);
+                    callback.onResult(photos,  null, currentPage++);
+                    networkState.postValue(NetworkState.LOADED);
+                } catch (UnsupportedEncodingException | JSONException | NetworkErrorException e) {
+                    e.printStackTrace();
+                    networkState.postValue(new NetworkState(NetworkState.Status.FAILED, e.getMessage()));
+                }
+            }
+        }).start();
+
+    }
+
+    @Override
+    public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Photo> callback) {
+
+    }
+
+    @Override
+    public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Photo> callback) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<Photo> photos = photoService.getPhotosWithinRange(currentPage);
+                    callback.onResult(photos, currentPage++);
+                    networkState.postValue(NetworkState.LOADED);
+                } catch (UnsupportedEncodingException | JSONException | NetworkErrorException e) {
+                    e.printStackTrace();
+                    networkState.postValue(new NetworkState(NetworkState.Status.FAILED, e.getMessage()));
+                }
+
+            }
+        });
+    }
+
+   // private class GetPhotosTask extends AsyncTask<>
+}

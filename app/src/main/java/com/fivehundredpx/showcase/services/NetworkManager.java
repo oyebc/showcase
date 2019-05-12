@@ -1,9 +1,7 @@
 package com.fivehundredpx.showcase.services;
 
-import android.support.annotation.Nullable;
-import android.util.Log;
-import android.util.Pair;
 
+import android.util.Log;
 
 import com.fivehundredpx.showcase.Utils;
 
@@ -14,7 +12,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,7 +31,7 @@ public class NetworkManager {
 
 
 
-    @Nullable
+
     public static HttpResponse makeHttpRequest(String url, String requestMethod, String requestBody, Map<String, String> requestProperties)
     {
         HttpURLConnection httpUrlConnection = null;
