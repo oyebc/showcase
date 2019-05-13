@@ -1,5 +1,9 @@
 package com.fivehundredpx.showcase.model;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DiffUtil;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Photo {
@@ -51,4 +55,19 @@ public class Photo {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public static DiffUtil.ItemCallback<Photo> DIFF_CALLBACK = new DiffUtil.ItemCallback<Photo>() {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Photo oldItem, @NonNull Photo newItem) {
+            return oldItem.id.equalsIgnoreCase(newItem.id);
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Photo oldItem, @NonNull Photo newItem) {
+            return oldItem.id.equalsIgnoreCase(newItem.id);
+        }
+    };
+
+
 }
