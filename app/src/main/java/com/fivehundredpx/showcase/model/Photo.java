@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Photo {
 
+    public static final String PHOTO_KEY = "current_photo_key";
     private String id;
     private String name;
     private int width;
@@ -18,6 +19,10 @@ public class Photo {
 
     public String[] getImageURL() {
         return imageURL;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public static DiffUtil.ItemCallback<Photo> DIFF_CALLBACK = new DiffUtil.ItemCallback<Photo>() {

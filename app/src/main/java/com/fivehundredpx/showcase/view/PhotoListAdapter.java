@@ -25,10 +25,12 @@ public class PhotoListAdapter extends PagedListAdapter<Photo, RecyclerView.ViewH
 
     private Context context;
     private NetworkState networkState;
+    private final View.OnClickListener photoClickListener;
 
-    protected PhotoListAdapter(Context context, @NonNull DiffUtil.ItemCallback<Photo> diffCallback) {
+    protected PhotoListAdapter(Context context, @NonNull DiffUtil.ItemCallback<Photo> diffCallback, View.OnClickListener photoClickListener) {
         super(diffCallback);
         this.context = context;
+        this.photoClickListener = photoClickListener;
     }
 
     @NonNull
@@ -125,12 +127,13 @@ public class PhotoListAdapter extends PagedListAdapter<Photo, RecyclerView.ViewH
         public void bindTo(Photo photo) {
             binding.itemImage.setVisibility(View.VISIBLE);
             binding.itemImage.setImageResource(R.drawable.ic_launcher_background);
+            binding.getRoot().setOnClickListener(photoClickListener);
+            binding.getRoot().setTag(this);
 
             Glide
                     .with(context)
                     .load(photo.getImageURL()[0])
                     .centerCrop()
-                    .placeholder(android.R.drawable.presence_online)
                     .into(binding.itemImage);
         }
     }

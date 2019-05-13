@@ -8,13 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_large"
-        android:background="@android:color/holo_blue_bright"
+        android:background="@android:color/darker_gray"
         android:orientation="vertical"
         android:paddingBottom="@dimen/padding_large"
         android:paddingTop="@dimen/padding">
-
-
-
 
         <ImageView
             android:id="@+id/item_image"
@@ -23,17 +20,5 @@
             android:layout_marginTop="@dimen/margin_xlarge"
             android:layout_marginBottom="@dimen/margin_small"
             android:scaleType="fitXY" />
-
-
-
-
-        <View
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="@dimen/margin_xsmall"
-            android:background="#40000000" />
-
     </LinearLayout>
 </layout>
