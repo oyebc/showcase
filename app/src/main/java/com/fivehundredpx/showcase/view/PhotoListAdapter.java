@@ -133,7 +133,6 @@ public class PhotoListAdapter extends PagedListAdapter<Photo, RecyclerView.ViewH
             Glide
                     .with(context)
                     .load(photo.getImageURL()[0])
-                    .centerCrop()
                     .into(binding.itemImage);
         }
     }

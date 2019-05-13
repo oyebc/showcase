@@ -74,5 +74,6 @@
 
     <dimen name="image_like_width">55dp</dimen>
     <dimen name="image_like_height">14dp</dimen>
+    <dimen name="icon_size">48dp</dimen>
 
 </resources>

@@ -48,10 +48,17 @@ public class PhotoDetailsActivity extends AppCompatActivity {
 
         Glide
                 .with(this)
-                .load(currentPhoto.getImageURL()[0])
-                .centerCrop()
+                .load(currentPhoto.getImageURL()[1])
+//                .override(currentPhoto.getWidth(), currentPhoto.getWidth())
                 .into(binding.fullscreenContent);
+
         binding.photoName.setText(currentPhoto.getName());
+        binding.userName.setText("by " +currentPhoto.getUser().getUserName());
+
+        Glide.with(this)
+                .load(currentPhoto.getUser().getImageURL())
+                .centerCrop()
+                .into(binding.userPhoto);
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {

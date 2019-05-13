@@ -42,7 +42,8 @@ public class PhotoService {
                 .append("&rpp=")
                 .append(PAGE_SIZE)
                 .append("&consumer_key=")
-                .append(Secret.API_KEY);
+                .append(Secret.API_KEY)
+                .append("&image_size=2,3");
         String url = stringBuilder.toString();
 
         //add api key to request

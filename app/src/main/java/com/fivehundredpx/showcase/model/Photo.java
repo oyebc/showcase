@@ -25,6 +25,18 @@ public class Photo {
         return name;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     public static DiffUtil.ItemCallback<Photo> DIFF_CALLBACK = new DiffUtil.ItemCallback<Photo>() {
 
         @Override

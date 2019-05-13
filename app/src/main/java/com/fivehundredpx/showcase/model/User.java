@@ -11,6 +11,8 @@ public class User {
     private String firstName;
     @SerializedName("lastname")
     private String lastName;
+    @SerializedName("userpic_url")
+    private String imageURL;
 
     public String getId() {
         return id;
@@ -42,5 +44,9 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getImageURL() {
+        return imageURL;
     }
 }

@@ -57,7 +57,6 @@ public class PhotosListActivity extends AppCompatActivity {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int itemPosition = viewHolder.getAdapterPosition();
             Photo currentPhoto = adapter.getCurrentList().get(itemPosition);
-            Toast.makeText(PhotosListActivity.this, currentPhoto.getName(), Toast.LENGTH_SHORT).show();
             launchPhotoDetails(currentPhoto);
         }
     };
