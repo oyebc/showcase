@@ -3,18 +3,18 @@ title Component Diagram
 
 component View
 component PhotoViewModel
-component PhotoRepository
+component "PhotoDataSource +PhotosDataFactory" as repo
 component PhotoService
 component NetworkManager
 cloud 500pxBackend
 database RoomDB
 
  View -down-> PhotoViewModel
- PhotoViewModel -down-> PhotoRepository
- PhotoRepository -down-> PhotoService
+ PhotoViewModel -down-> repo
+ repo -down-> PhotoService
  PhotoService -down-> NetworkManager
  NetworkManager -down-> 500pxBackend
- PhotoRepository -down-> RoomDB: maybe
+ repo -down-> RoomDB: maybe
 
 
 @enduml
