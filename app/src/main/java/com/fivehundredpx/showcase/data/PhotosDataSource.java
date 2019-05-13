@@ -20,7 +20,6 @@ public class PhotosDataSource extends PageKeyedDataSource<Integer, Photo> {
     private PhotoService photoService;
 
     private MutableLiveData networkState;
-    private MutableLiveData initialLoading;
 
     private Integer currentPage = 1;
 
@@ -28,7 +27,6 @@ public class PhotosDataSource extends PageKeyedDataSource<Integer, Photo> {
         this.photoService = new PhotoService();
 
         networkState = new MutableLiveData();
-        initialLoading = new MutableLiveData();
     }
 
     public MutableLiveData getNetworkState() {
@@ -37,8 +35,7 @@ public class PhotosDataSource extends PageKeyedDataSource<Integer, Photo> {
 
     @Override
     public void loadInitial(@NonNull final LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Photo> callback) {
-        //initialLoading.postValue(NetworkState.LOADING);
-        networkState.postValue(NetworkState.LOADING);
+       networkState.postValue(NetworkState.LOADING);
 
         try {
             List<Photo> photos = photoService.getPhotosWithinRange(currentPage);

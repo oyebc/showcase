@@ -37,11 +37,12 @@ public class PhotosListActivity extends AppCompatActivity {
         binding.listFeed.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PhotoListAdapter(this, Photo.DIFF_CALLBACK, photoClickListener);
 
+        //when a new chunk of photos is available, call submitList()
         photoViewModel.getPhotoLiveData().observe(this, pagedList->{
             adapter.submitList(pagedList);
-            adapter.notifyDataSetChanged();
         });
 
+        //keep track of the status of the background loading processes
         photoViewModel.getNetworkState().observe(this, networkState -> {
             adapter.setNetworkState(networkState);
         });

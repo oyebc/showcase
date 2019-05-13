@@ -26,9 +26,11 @@ public class PhotoViewModel extends ViewModel {
         PhotosDataFactory dataFactory = new PhotosDataFactory();
         networkState = Transformations.switchMap(dataFactory.getMutableLiveData(), dataSource -> dataSource.getNetworkState());
 
+        //config for the paging list library, this will be used to create a pagedList with initial
+        //loadsize and subsequent page sizes
         PagedList.Config pagedListConfig =
                 new PagedList.Config.Builder()
-                .setEnablePlaceholders(true)
+                .setEnablePlaceholders(false)
                 .setInitialLoadSizeHint(10)
                 .setPageSize(Settings.PAGE_SIZE)
                 .build();
