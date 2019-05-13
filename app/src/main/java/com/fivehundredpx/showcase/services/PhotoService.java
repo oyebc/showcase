@@ -43,7 +43,7 @@ public class PhotoService {
                 .append(PAGE_SIZE)
                 .append("&consumer_key=")
                 .append(Secret.API_KEY)
-                .append("&image_size=2,3");
+                .append("&image_size=2,3,4,5");
         String url = stringBuilder.toString();
 
         //add api key to request

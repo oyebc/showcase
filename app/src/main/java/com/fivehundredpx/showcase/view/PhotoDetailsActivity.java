@@ -15,6 +15,7 @@ import androidx.core.app.NavUtils;
 import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
 import com.fivehundredpx.showcase.R;
 import com.fivehundredpx.showcase.databinding.PhotoDetailsBinding;
 import com.fivehundredpx.showcase.model.Photo;
@@ -40,6 +41,7 @@ public class PhotoDetailsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("");
         }
 
         mVisible = true;
@@ -48,8 +50,9 @@ public class PhotoDetailsActivity extends AppCompatActivity {
 
         Glide
                 .with(this)
-                .load(currentPhoto.getImageURL()[1])
-//                .override(currentPhoto.getWidth(), currentPhoto.getWidth())
+                .load(currentPhoto.getImageURL()[3])
+                .placeholder(R.drawable.progress_animation)
+                .format(DecodeFormat.PREFER_ARGB_8888)
                 .into(binding.fullscreenContent);
 
         binding.photoName.setText(currentPhoto.getName());
@@ -57,7 +60,7 @@ public class PhotoDetailsActivity extends AppCompatActivity {
 
         Glide.with(this)
                 .load(currentPhoto.getUser().getImageURL())
-                .centerCrop()
+                .fitCenter()
                 .into(binding.userPhoto);
 
         // Set up the user interaction to manually show or hide the system UI.

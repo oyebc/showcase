@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_large"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/white"
         android:orientation="vertical"
         android:paddingBottom="@dimen/padding_large"
         android:paddingTop="@dimen/padding">
@@ -19,6 +19,6 @@
             android:layout_height="@dimen/feed_image_height"
             android:layout_marginTop="@dimen/margin_xlarge"
             android:layout_marginBottom="@dimen/margin_small"
-            android:scaleType="fitXY" />
+            android:adjustViewBounds="true"/>
     </LinearLayout>
 </layout>

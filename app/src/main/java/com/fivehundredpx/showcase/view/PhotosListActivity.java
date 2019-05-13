@@ -47,6 +47,7 @@ public class PhotosListActivity extends AppCompatActivity {
         });
 
         binding.listFeed.setAdapter(adapter);
+        binding.swipeRefreshLayout.setEnabled(false);
 
     }
 
