@@ -38,28 +38,19 @@ public class PhotosDataSource extends PageKeyedDataSource<Integer, Photo> {
         return networkState;
     }
 
-    public MutableLiveData getInitialLoading() {
-        return initialLoading;
-    }
-
     @Override
     public void loadInitial(@NonNull final LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Photo> callback) {
-        initialLoading.postValue(NetworkState.LOADING);
+        //initialLoading.postValue(NetworkState.LOADING);
         networkState.postValue(NetworkState.LOADING);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    List<Photo> photos = photoService.getPhotosWithinRange(currentPage);
-                    callback.onResult(photos,  null, currentPage++);
-                    networkState.postValue(NetworkState.LOADED);
-                } catch (UnsupportedEncodingException | JSONException | NetworkErrorException e) {
-                    e.printStackTrace();
-                    networkState.postValue(new NetworkState(NetworkState.Status.FAILED, e.getMessage()));
-                }
-            }
-        }).start();
+        try {
+            List<Photo> photos = photoService.getPhotosWithinRange(currentPage);
+            callback.onResult(photos,  null, currentPage++);
+            networkState.postValue(NetworkState.LOADED);
+        } catch (UnsupportedEncodingException | JSONException | NetworkErrorException e) {
+            e.printStackTrace();
+            networkState.postValue(new NetworkState(NetworkState.Status.FAILED, e.getMessage()));
+        }
 
     }
 
@@ -71,21 +62,16 @@ public class PhotosDataSource extends PageKeyedDataSource<Integer, Photo> {
     @Override
     public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Photo> callback) {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    List<Photo> photos = photoService.getPhotosWithinRange(currentPage);
-                    callback.onResult(photos, currentPage++);
-                    networkState.postValue(NetworkState.LOADED);
-                } catch (UnsupportedEncodingException | JSONException | NetworkErrorException e) {
-                    e.printStackTrace();
-                    networkState.postValue(new NetworkState(NetworkState.Status.FAILED, e.getMessage()));
-                }
+            networkState.postValue(NetworkState.LOADING);
+        try {
+            List<Photo> photos = photoService.getPhotosWithinRange(currentPage);
+            callback.onResult(photos, currentPage++);
+            networkState.postValue(NetworkState.LOADED);
+        } catch (UnsupportedEncodingException | JSONException | NetworkErrorException e) {
+            e.printStackTrace();
+            networkState.postValue(new NetworkState(NetworkState.Status.FAILED, e.getMessage()));
+        }
 
-            }
-        });
     }
 
-   // private class GetPhotosTask extends AsyncTask<>
 }
