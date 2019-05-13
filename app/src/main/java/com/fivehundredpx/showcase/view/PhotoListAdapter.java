@@ -10,6 +10,7 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.fivehundredpx.showcase.R;
 import com.fivehundredpx.showcase.data.NetworkState;
 import com.fivehundredpx.showcase.databinding.NetworkItemBinding;
@@ -124,6 +125,13 @@ public class PhotoListAdapter extends PagedListAdapter<Photo, RecyclerView.ViewH
         public void bindTo(Photo photo) {
             binding.itemImage.setVisibility(View.VISIBLE);
             binding.itemImage.setImageResource(R.drawable.ic_launcher_background);
+
+            Glide
+                    .with(context)
+                    .load(photo.getImageURL()[0])
+                    .centerCrop()
+                    .placeholder(android.R.drawable.presence_online)
+                    .into(binding.itemImage);
         }
     }
 }

@@ -1,13 +1,10 @@
 package com.fivehundredpx.showcase.data;
 
 import android.accounts.NetworkErrorException;
-import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-import androidx.paging.ItemKeyedDataSource;
 import androidx.paging.PageKeyedDataSource;
-import androidx.paging.PositionalDataSource;
 
 import com.fivehundredpx.showcase.model.Photo;
 import com.fivehundredpx.showcase.services.PhotoService;
